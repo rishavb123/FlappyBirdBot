@@ -5,7 +5,7 @@ class BirdAgent(Bird):
         super().__init__()
 
     def take_action(self, pipes):
-        print(self.create_features(pipes))
+        features = self.create_features(pipes)
 
     def create_features(self, pipes):
 
