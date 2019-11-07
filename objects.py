@@ -17,30 +17,33 @@ class GameObject:
 
 class Bird(GameObject):
 
-    def __init__(self, y=100):
+    a = 500
+    jump_v = 300
+
+    def __init__(self, y=height/2):
         super().__init__()
         self.x = 100
         self.y = y
         self.r = 20
-        self.color = BLACK
+        self.color = RED
         self.v = 0
-        self.a = 300
+        self.a = Bird.a
 
-    def draw(self, surface):
-        pygame.draw.circle(surface, self.color, [int(self.x), int(self.y)], int(self.r))
+    def draw(self, surface, color=None):
+        pygame.draw.circle(surface, color if color != None else self.color, [int(self.x), int(self.y)], int(self.r))
 
     def update(self, dt):
         self.v += self.a * dt
         self.y += self.v * dt
 
     def jump(self):
-        self.v = -200
+        self.v = -Bird.jump_v
 
     def collide(self, pipe):
         return collide([pipe.x, 0, pipe.width, pipe.uy], [self.x, self.y, self.r]) or collide([pipe.x, pipe.ly, pipe.width, height - pipe.ly], [self.x, self.y, self.r]) or self.y < self.r or self.y > height - self.r 
 
     def die(self, score):
-        print(score)
+        pass
 
 class Pipe(GameObject): 
 

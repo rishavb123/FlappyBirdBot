@@ -24,7 +24,11 @@ def fitness(nn, log=False):
     if log:
         print(cost)
 
-    return 1/cost
+    return 1/cost[0]
+
+def softmax(fitnesses):
+    return [np.exp(f) / sum(np.exp(fitnesses)) for f in fitnesses]
+
 
 def test():
     nn = NeuralNetwork(shape)
@@ -42,11 +46,11 @@ def main():
 
     for i in range(num_of_generations):
         population = sorted(population, key=(lambda network: fitness(network)))
-        parents = population[-10:]
+        fitnesses = softmax([fitness(nn) for nn in population])
         new_population = []
         for i in range(population_size):
-            new_population.append(NeuralNetwork.clone(np.random.choice(parents)).mutate(0.01))
-            # new_population.append(NeuralNetwork.crossover(np.random.choice(parents), np.random.choice(parents)).mutate(0.01))
+            new_population.append(np.random.choice(population, p=fitnesses).mutate(0.1))
+            # new_population.append(NeuralNetwork.crossover(np.random.choice(population, p=fitnesses), np.random.choice(population, p=fitnesses)).mutate(0.01))
         population = new_population
 
     print(population[0].forward([0, 0]))
