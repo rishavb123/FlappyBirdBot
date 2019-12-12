@@ -115,7 +115,7 @@ while True:
     dt = time.time() - current_time
 
     for obj in birds + pipes:
-        obj.update(dt)
+        obj.update(20 * dt)
         if show or isinstance(obj, Pipe):
             obj.draw(surface)
 
