@@ -5,10 +5,10 @@ population_size = 100
 num_of_generations = 1000
 shape = [2, 2, 1]
 
-def fitness(nn, log=False):
+def fitness(nn, log=True):
     inputs = [[0, 0], [1, 0], [0, 1], [1, 1]]
     targets = [[0], [1], [1], [0]]
-    outputs = nn.manyForward(inputs)
+    outputs = nn.predict_set(inputs)
 
     if log:
         print("Starting Fitness: ")
@@ -22,7 +22,7 @@ def fitness(nn, log=False):
     cost = sum(np.multiply(cost, cost))
 
     if log:
-        print(cost)
+        print("COST: ",cost)
 
     return 1/cost[0]
 
