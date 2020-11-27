@@ -32,6 +32,8 @@ birds = [Bird()]
 agent_file_name = "./agents/none.pkl"
 load_model = False
 
+time_multiplier = 1
+
 for root, dirs, files in os.walk("./agents/"):
     if len(files) > 0:
         name = agent_file_name.split("/")[len(agent_file_name.split("/")) - 1]
@@ -115,7 +117,7 @@ while True:
     dt = time.time() - current_time
 
     for obj in birds + pipes:
-        obj.update(20 * dt)
+        obj.update(time_multiplier * dt)
         if show or isinstance(obj, Pipe):
             obj.draw(surface)
 
